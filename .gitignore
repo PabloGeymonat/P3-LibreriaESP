@@ -1,0 +1,98 @@
+# Archivos de Bytecode de .NET
+bin/
+obj/
+
+# Archivos de Visual Studio .NET
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Más archivos y directorios de Visual Studio
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Herramientas de Visual Studio para Apache Cordova
+.taco.json
+node_modules/
+
+# Archivos de Build de Visual Studio
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Proyecto Rider
+.idea/
+
+# Archivos generados por la compilación de .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Archivos de almacenamiento local ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Archivos de Resharper
+_ReSharper*/
+*.[Rr]es[Ss]harper
+
+# Carpetas de Team Foundation
+$tf/
+
+# Carpetas de Backup
+[Bb]ackup[0-9]*/
+
+# Carpetas de .mdf (SQL Server Database File)
+*.mdf
+*.ldf
+
+# Archivos de Paquetes
+*.nupkg
+# Los siguientes archivos y directorios se deben incluir en el control de versiones
+!**/packages/build/
+!**/packages/repositories.config
+*.nuget.props
+*.nuget.targets
+
+# Archivos generados por NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+
+# Archivos generados por la herramienta de migración de .NET Core
+*.jfm
+
+# Archivos generados por JetBrains Rider
+.idea/
+*.sln.iml
+
+# Archivos generados por Windows Store
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+_pkginfo.txt
+*.appx
+*.appxbundle
+*.appxupload
+
+# Otros archivos y carpetas
+*.cache
+*.pidb
+*.swp
+*.dbmdl
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+orleans.codegen.cs

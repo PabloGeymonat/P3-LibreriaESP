@@ -1,0 +1,128 @@
+@using Domain.Dtos
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.EntityFrameworkCore
+@model LibreriaWebApp.Models.RevistaFormViewModel
+
+@{
+    ViewData["Title"] = "Editar Tema";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
+<form asp-action="Edit" method="post" class="mt-3">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+     <label  class="control-label">Tema</label>
+    <div class="form-group mt-3">
+    <select sdp-for="TemaId" class="form-control" name ="TemaId">
+        <option value = 0>-- seleccionar el tema --</option>
+        @if (Model.posiblesTemas != null)
+        {
+            @foreach (TemaDto temaDto in Model.posiblesTemas)
+            {
+                @if (Model.TemaDto.Id == temaDto.Id)
+                {
+                    <option value = "@temaDto.Id" selected>@temaDto.Nombre</option>
+                }
+                else
+                {
+                    <option value = "@temaDto.Id">@temaDto.Nombre</option>
+                }
+            }
+        }
+    </select>
+    </div>
+
+    <div class="form-group mt-3">
+    <select sdp-for="Editoriald" class="form-control" name ="EditorialId">
+        <option value = 0>-- seleccionar la editorial --</option>
+        @if (Model.posiblesEditoriales != null)
+        {
+            @foreach (EditorialDto editorialDto in Model.posiblesEditoriales)
+            {
+                @if (Model.EditorialDto.Id == editorialDto.Id)
+                {
+                    <option value = "@editorialDto.Id" selected>@editorialDto.Nombre</option>
+                }
+                else
+                {
+                    <option value = "@editorialDto.Id">@editorialDto.Nombre</option>
+                }
+            }
+        }
+    </select>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="PrecioSugerido" class="control-label">Precio Sugerido</label>
+        <input asp-for="PrecioSugerido" class="form-control"/>
+        <span asp-for="PrecioSugerido" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="FechaPublicacion" class="control-label">Fecha Publicacion</label>
+        <input asp-for="FechaPublicacion" class="form-control"/>
+        <span asp-for="FechaPublicacion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="CantidadPaginas" class="control-label">Cantidad de Paginas</label>
+        <input asp-for="CantidadPaginas" class="form-control"/>
+        <span asp-for="CantidadPaginas" class="text-danger"></span>
+    </div>
+        
+    <div class="form-group mt-3">
+        <label asp-for="ImagenPortada" class="control-label">Imagen Portada</label>
+        <input asp-for="ImagenPortada" class="form-control"/>
+        <span asp-for="ImagenPortada" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group mt-3">
+        <label asp-for="Stock" class="control-label">Stock</label>
+        <input asp-for="Stock" class="form-control"/>
+        <span asp-for="Stock" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group mt-3">
+        <label asp-for="Nombre" class="control-label"></label>
+        <input asp-for="Nombre" class="form-control"/>
+        <span asp-for="Nombre" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group mt-3">
+        <label asp-for="Numero" class="control-label">Numero</label>
+        <input asp-for="Numero" class="form-control"/>
+        <span asp-for="Numero" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group mt-3">
+        <label asp-for="Anio" class="control-label">Año</label>
+        <input asp-for="Anio" class="form-control"/>
+        <span asp-for="Anio" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group mt-3">
+        <label asp-for="TablaContenido" class="control-label">TablaContenido</label>
+        <input asp-for="TablaContenido" class="form-control"/>
+        <span asp-for="TablaContenido" class="text-danger"></span>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-2">
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+    </div>
+</form>
+
+

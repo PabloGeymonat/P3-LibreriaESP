@@ -1,0 +1,123 @@
+@model LibreriaWebApp.Models.AutorIndexViewModel
+
+@{
+    ViewData["Title"] = "Detalle de Autors";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Index" method="post">
+    @{
+        Model.TipoReporte = "POR_NOMBRE";
+    }
+    @Html.HiddenFor(model => model.TipoReporte)
+    <div class="form-group">
+        <div class="row">
+
+            <div class="col-4">
+                <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre..." value="@Model.nombre"/>
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form asp-action="Index" method="post">
+    @{
+        Model.TipoReporte = "POR_NACIONALIDAD";
+    }
+    @Html.HiddenFor(model => model.TipoReporte)
+    <div class="form-group">
+        <div class="row mt-3">
+
+            <div class="col-4">
+                <input type="text" name="Nacionalidad" class="form-control" placeholder="Buscar por nacionalidad..." value="@Model.Nacionalidad"/>
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form asp-action="Index" method="post">
+    @{
+        Model.TipoReporte = "POR_FECHA_DE_NACIMIENTO";
+    }
+    @Html.HiddenFor(model => model.TipoReporte)
+    <div class="form-group">
+        <div class="row mt-3">
+
+            <div class="col-2">
+                <input asp-for="FechaNacimientoDesde" name="FechaNacimientoDesde" class="form-control" placeholder="Nacido entre" value="@Model.FechaNacimientoDesde"/>
+            </div>
+            <div class="col-2">
+                <input asp-for="FechaNacimientoHasta" name="FechaNacimientoHasta" class="form-control" placeholder="hasta" value="@Model.FechaNacimientoHasta"/>
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form asp-action="Index" method="post">
+    @{
+        Model.TipoReporte = "POR_FECHA_DE_DEFUNCION";
+    }
+    <div class="form-group">
+          <div class="row mt-3">
+  
+              <div class="col-2">
+                  <input asp-for="FechaDefuncionDesde" name="FechaDefuncionDesde" class="form-control" placeholder="Fallecido entre" value="@Model.FechaDefuncionDesde"/>
+              </div>
+              <div class="col-2">
+                  <input asp-for="FechaDefuncionHasta" name="FechaDefuncionHasta" class="form-control" placeholder="hasta" value="@Model.FechaDefuncionHasta"/>
+              </div>
+              <div class="col-4">
+                  <button type="submit" class="btn btn-primary">Buscar</button>
+              </div>
+          </div>
+      </div>
+</form>
+             
+
+
+
+<a asp-action="Create" class="btn btn-success" style="float: right">Crear Nuevo</a>
+
+<table class="table table-striped mt-3">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Nacionalidad</th>
+        <th>F.Nacimiento</th>
+        <th>F.Defunción</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var Autor in Model.Autores)
+    {
+        <tr>
+            <td>@Autor.Id</td>
+            <td>@Autor.Nombre</td>
+            <td>@Autor.NacionalidadDto.Nombre</td>
+            <td>@Autor.FechaNacimiento</td>
+            <td>@Autor.FechaDefuncion</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@Autor.Id" class="btn btn-info">Editar</a>
+            </td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@Autor.Id" method="get" >
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+
+<h2>Pagina de Test</h2>
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Mensaje
+    </div>
+}
+<div>
+    <label for="name">Test</label>    
+
+    <span>;<a class="btn-link" href="/Test/Prueba">==>>Prueba</a></span>
+</div>

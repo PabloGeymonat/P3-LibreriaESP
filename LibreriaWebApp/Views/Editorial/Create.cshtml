@@ -1,0 +1,49 @@
+@using Domain.Dtos
+@model LibreriaWebApp.Models.EditorialFormViewModel
+
+@{
+    ViewData["Title"] = "Crear Editorial";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
+
+<form asp-action="Create" method="post" class="mt-3">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label"></label>
+        <input asp-for="Nombre" class="form-control"/>
+        <span asp-for="Nombre" class="text-danger"></span>
+        
+        <label  class="control-label">Nacionalidad</label>
+        <div class="form-group">
+            <select sdp-for="PaisOrigenId" class="form-control" name ="PaisOrigenId">
+                <option value = 0>-- seleccionar la nacionalidad --</option>
+                @if (Model.posiblesPaises != null)
+                {
+                    @foreach (PaisDto paisDto in Model.posiblesPaises)
+                    {
+                        <option value = "@paisDto.Id">@paisDto.Nombre</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-2">
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-success">Aceptar</button>
+        </div>
+    </div>
+</form>
+
