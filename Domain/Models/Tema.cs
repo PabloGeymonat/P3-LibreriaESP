@@ -9,8 +9,6 @@ public class Tema: IValidable, IIdentityById, ICopiable<Tema>
     public int Id { get; set; }
     public string Nombre { get; set; }
 
-    public IEnumerable<Publicacion> Publicaciones { get; set; }
-
     public void Validar()
     {
         Util.ThrowExceptionIfEmptyString(Nombre, "El nombre del tema no puede ser vacío");

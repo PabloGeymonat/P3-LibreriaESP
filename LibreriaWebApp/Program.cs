@@ -43,14 +43,8 @@ namespace LibreriaWebApp
 
 
             
-            builder.Services.AddAutoMapper(typeof(TemaProfile), 
-                                            typeof(AutorProfile), 
-                                            typeof(PaisProfile),
-                                            typeof(NacionalidadProfile),
-                                            typeof(ProveedorProfile),
-                                            typeof(EditorialProfile),
-                                            typeof(RevistaProfile)
-                                            );
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             
             /***/
             // Add services to the container.

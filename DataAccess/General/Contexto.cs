@@ -27,32 +27,34 @@ namespace DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+            
+            
             //definir FK de nacionalidad en Autor
             modelBuilder.Entity<Autor>()
                 .HasOne(a => a.Nacionalidad)  // Un Autor tiene una Nacionalidad
-                .WithMany(n => n.Autores)     // Una Nacionalidad tiene muchos Autores
+                .WithMany()     // Una Nacionalidad tiene muchos Autores
                 .HasForeignKey(a => a.NacionalidadId);  // Clave foránea en Autor
             
             //definir FK de paises en Editorial
             modelBuilder.Entity<Editorial>()
                 .HasOne(p => p.PaisOrigen)  // Una Editorial tiene un pais de origen
-                .WithMany(n => n.Editoriales)     // Un Pais tiene varias editoriales
+                .WithMany()     // Un Pais tiene varias editoriales
                 .HasForeignKey(p => p.PaisOrigenId);  // Clave foránea en en Nacionalidad
             
             
             //definir FK de Temas en Publicacion
             modelBuilder.Entity<Publicacion>()
                 .HasOne(p => p.Tema)  // Una Publicacion tiene un Tema
-                .WithMany(t => t.Publicaciones)     // Un Tema tiene varias Publicaciones
+                .WithMany()     // Un Tema tiene varias Publicaciones
                 .HasForeignKey(p => p.TemaId);  // Clave foránea en en TemaId
             
             //definir FK de Edotorial en Publicacion
             modelBuilder.Entity<Publicacion>()
                 .HasOne(p => p.Editorial)  // Una Publicacion tiene un Tema
-                .WithMany(t => t.Publicaciones)     // Un Tema tiene varias Publicaciones
+                .WithMany()     // Un Tema tiene varias Publicaciones
                 .HasForeignKey(p => p.EditorialId);  // Clave foránea en en TemaId
 
-            
             
             // Configuración de la herencia entre Publicacion, Libro y Revista
             modelBuilder.Entity<Libro>().ToTable("Libros");

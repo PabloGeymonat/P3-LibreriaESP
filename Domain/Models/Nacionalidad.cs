@@ -8,8 +8,7 @@ public class Nacionalidad: IValidable, IIdentityById, ICopiable<Nacionalidad>
 {
     public int Id { get; set; }
     public string Nombre { get; set; }
-
-    public List<Autor> Autores { get; set; } 
+ 
     public void Validar()
     {
         Util.ThrowExceptionIfEmptyString(Nombre, "El nombre de la nacionalidad no puede ser vacío");

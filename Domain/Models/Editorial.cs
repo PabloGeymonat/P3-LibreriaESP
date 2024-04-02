@@ -12,7 +12,7 @@ public class Editorial: IValidable, IIdentityById, ICopiable<Editorial>
 
     public int PaisOrigenId { get; set;  }
 
-    public IEnumerable<Publicacion> Publicaciones { get; set; }
+  
 
     // Validaciones adicionales según las reglas de negocio
     public void Validar()
