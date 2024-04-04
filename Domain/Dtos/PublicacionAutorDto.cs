@@ -8,5 +8,4 @@ public class PublicacionAutorDto
     public int AutorId { get; set; }
     public AutorDto AutorDto { get; set; }
 
-    // Atributos adicionales de la relación, si los hay
 }

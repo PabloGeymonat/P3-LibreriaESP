@@ -1,3 +1,5 @@
+@using Domain.Dtos
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model LibreriaWebApp.Models.AutorIndexViewModel
 
 @{
@@ -15,7 +17,7 @@
         <div class="row">
 
             <div class="col-4">
-                <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre..." value="@Model.nombre"/>
+                <input type="text" asp-for="nombre" class="form-control" placeholder="Buscar por nombre..." />
             </div>
             <div class="col-4">
                 <button type="submit" class="btn btn-primary">Buscar</button>
@@ -29,11 +31,20 @@
         Model.TipoReporte = "POR_NACIONALIDAD";
     }
     @Html.HiddenFor(model => model.TipoReporte)
-    <div class="form-group">
-        <div class="row mt-3">
-
+    <label  class="control-label">Nacionalidad</label>
+     <div class="form-group">
+        <div class="row">
             <div class="col-4">
-                <input type="text" name="Nacionalidad" class="form-control" placeholder="Buscar por nacionalidad..." value="@Model.Nacionalidad"/>
+                <select asp-for="NacionalidadId" class="form-control" name ="NacionalidadId">
+                    <option value = 0>-- seleccionar la nacionalidad --</option>
+                    @if (Model.NacionalidadDtos != null)
+                    {
+                        @foreach (NacionalidadDto nacionalidadDto in Model.NacionalidadDtos)
+                        {
+                            <option value = "@nacionalidadDto.Id">@nacionalidadDto.Nombre</option>
+                        }
+                    }
+                </select>
             </div>
             <div class="col-4">
                 <button type="submit" class="btn btn-primary">Buscar</button>
@@ -51,10 +62,10 @@
         <div class="row mt-3">
 
             <div class="col-2">
-                <input asp-for="FechaNacimientoDesde" name="FechaNacimientoDesde" class="form-control" placeholder="Nacido entre" value="@Model.FechaNacimientoDesde"/>
+                <input asp-for="FechaNacimientoDesde" name="FechaNacimientoDesde" class="form-control" placeholder="Nacido entre" />
             </div>
             <div class="col-2">
-                <input asp-for="FechaNacimientoHasta" name="FechaNacimientoHasta" class="form-control" placeholder="hasta" value="@Model.FechaNacimientoHasta"/>
+                <input asp-for="FechaNacimientoHasta" name="FechaNacimientoHasta" class="form-control" placeholder="hasta" />
             </div>
             <div class="col-4">
                 <button type="submit" class="btn btn-primary">Buscar</button>
@@ -71,10 +82,10 @@
           <div class="row mt-3">
   
               <div class="col-2">
-                  <input asp-for="FechaDefuncionDesde" name="FechaDefuncionDesde" class="form-control" placeholder="Fallecido entre" value="@Model.FechaDefuncionDesde"/>
+                  <input asp-for="FechaDefuncionDesde" name="FechaDefuncionDesde" class="form-control" placeholder="Fallecido entre" />
               </div>
               <div class="col-2">
-                  <input asp-for="FechaDefuncionHasta" name="FechaDefuncionHasta" class="form-control" placeholder="hasta" value="@Model.FechaDefuncionHasta"/>
+                  <input asp-for="FechaDefuncionHasta" name="FechaDefuncionHasta" class="form-control" placeholder="hasta" />
               </div>
               <div class="col-4">
                   <button type="submit" class="btn btn-primary">Buscar</button>

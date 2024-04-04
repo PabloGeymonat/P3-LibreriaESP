@@ -1,11 +1,10 @@
 @using Domain.Dtos
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model LibreriaWebApp.Models.RevistaFormViewModel
+@using Microsoft.EntityFrameworkCore
+@model LibreriaWebApp.Models.LibroFormViewModel
 
 @{
-
-    ViewData["Title"] = "Editar revista";
-
+    ViewData["Title"] = "Editar Libro";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -36,16 +35,16 @@
     </div>
 
     <div class="form-group mt-3">
-        <select asp-for="EditorialId" class="form-control">
-            <option value = 0>-- seleccionar la editorial --</option>
-            @if (Model.posiblesEditoriales != null)
+    <select asp-for="EditorialId" class="form-control">
+        <option value = 0>-- seleccionar la editorial --</option>
+        @if (Model.posiblesEditoriales != null)
+        {
+            @foreach (EditorialDto editorialDto in Model.posiblesEditoriales)
             {
-                @foreach (EditorialDto editorialDto in Model.posiblesEditoriales)
-                {
-                   <option value = "@editorialDto.Id">@editorialDto.Nombre</option>
-                }
+                <option value = "@editorialDto.Id">@editorialDto.Nombre</option>
             }
-        </select>
+        }
+    </select>
     </div>
 
     <div class="form-group mt-3">
@@ -79,28 +78,16 @@
     </div>
     
     <div class="form-group mt-3">
-        <label asp-for="Nombre" class="control-label"></label>
-        <input asp-for="Nombre" class="form-control"/>
-        <span asp-for="Nombre" class="text-danger"></span>
-    </div>
-    
-    <div class="form-group mt-3">
-        <label asp-for="Numero" class="control-label">Numero</label>
-        <input asp-for="Numero" class="form-control"/>
-        <span asp-for="Numero" class="text-danger"></span>
-    </div>
-    
-    <div class="form-group mt-3">
-        <label asp-for="Anio" class="control-label">Año</label>
-        <input asp-for="Anio" class="form-control"/>
-        <span asp-for="Anio" class="text-danger"></span>
-    </div>
-    
-    <div class="form-group mt-3">
-        <label asp-for="TablaContenido" class="control-label">TablaContenido</label>
-        <input asp-for="TablaContenido" class="form-control"/>
-        <span asp-for="TablaContenido" class="text-danger"></span>
-    </div>
+       <label asp-for="ISBN" class="control-label"></label>
+       <input asp-for="ISBN" class="form-control"/>
+       <span asp-for="ISBN" class="text-danger"></span>
+   </div>
+   
+   <div class="form-group mt-3">
+       <label asp-for="Titulo" class="control-label">Titulo</label>
+       <input asp-for="Titulo" class="form-control"/>
+       <span asp-for="Titulo" class="text-danger"></span>
+   </div>
 
     <div class="row mt-5">
         <div class="col-2">

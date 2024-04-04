@@ -1,7 +1,7 @@
-@model Domain.Dtos.NacionalidadDto
+@model LibreriaWebApp.Models.LibroFormViewModel
 
 @{
-    ViewData["Title"] = "Eliminar Nacionalidad";
+    ViewData["Title"] = "Eliminar Libro";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -17,7 +17,7 @@
 <div class="mt-3">
     <h3>Estás a punto de eliminar el siguiente tema:</h3>
     <p>ID: @Model.Id</p>
-    <p>Nombre: @Model.Nombre</p>
+    <p>Nombre: @Model.Titulo</p>
 </div>
 
 <!-- Confirmación de la acción de eliminación -->

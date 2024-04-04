@@ -14,38 +14,37 @@ namespace DataAccess
 
         public IEnumerable<Autor> GetByName(string name)
         {
-            IEnumerable<Autor> temas = Contexto.Set<Autor>()
+            IEnumerable<Autor> autores = Contexto.Set<Autor>()
                                         .Include(n =>n.Nacionalidad)
-                                        .Where(tema => tema.Nombre.Contains(name));
+                                        .Where(autor => autor.Nombre.Contains(name));
             
-            return temas;
+            return autores;
         }
 
         public IEnumerable<Autor> GetFechaDeNacimentoEntreDosFechas(DateTime desde, DateTime hasta)
         {
-            IEnumerable<Autor> temas = Contexto.Set<Autor>()
+            IEnumerable<Autor> autores = Contexto.Set<Autor>()
                 .Include(n =>n.Nacionalidad)
                 .Where(autor =>  autor.FechaNacimiento >=  desde && autor.FechaNacimiento <= hasta);
             
-            return temas;   
+            return autores;   
         }
 
         public IEnumerable<Autor> GetFechaDeFallecimientoEntreDosFechas(DateTime desde, DateTime hasta)
         {
-            IEnumerable<Autor> temas = Contexto.Set<Autor>()
+            IEnumerable<Autor> autores = Contexto.Set<Autor>()
                 .Include(n =>n.Nacionalidad)
                 .Where(autor =>  autor.FechaDefuncion >=  desde && autor.FechaDefuncion <= hasta);
             
-            return temas; 
+            return autores; 
         }
 
-        public IEnumerable<Autor> GetNacionalidad(Nacionalidad nacionalidad)
+        public IEnumerable<Autor> GetNacionalidad(int nacionalidadId)
         {
-            IEnumerable<Autor> temas = Contexto.Set<Autor>()
+            IEnumerable<Autor> autores = Contexto.Set<Autor>()
                 .Include(n =>n.Nacionalidad)
-                .Where(tema => tema.Nacionalidad.Equals(nacionalidad));
-            
-            return temas;
+                .Where(autor => autor.Nacionalidad.Id == nacionalidadId);
+            return autores;
         }
 
         public override Autor Get(int id)

@@ -17,7 +17,6 @@ public abstract class PublicacionDto: IValidable, IIdentityById
     public int CantidadPaginas { get; set; }
     public string ImagenPortada { get; set; }
     public int Stock { get; set; }
-    // Relación muchos a muchos con Autor
     public IList<PublicacionAutorDto> Autores { get; set; } = new List<PublicacionAutorDto>();
     
     public virtual void Validar()

@@ -26,6 +26,7 @@ public class AutorFormViewModel
         FechaNacimiento = autorDto.FechaNacimiento;
         FechaDefuncion = autorDto.FechaDefuncion;
         NacionalidadDto = autorDto.NacionalidadDto;
+        NacionalidadId = NacionalidadDto.Id;
     }
 
     public AutorDto ToAutorDto()

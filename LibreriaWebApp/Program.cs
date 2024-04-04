@@ -12,8 +12,6 @@ namespace LibreriaWebApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            /***/
-             //inyecta el Contexto
             builder.Services.AddDbContext<DbContext, Contexto>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("StringConnection"));
@@ -41,36 +39,28 @@ namespace LibreriaWebApp
             builder.Services.AddScoped(typeof(IRepositoryRevista), typeof(RepositorioRevista));
             builder.Services.AddScoped(typeof(IServicioRevista), typeof(ServicioRevista));
 
+            builder.Services.AddScoped(typeof(IRepositoryLibro), typeof(RepositorioLibro));
+            builder.Services.AddScoped(typeof(IServicioLibro), typeof(ServicioLibro));
 
-            
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
             
             /***/
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
             var app = builder.Build();
-
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
             app.Run();
         }
     }

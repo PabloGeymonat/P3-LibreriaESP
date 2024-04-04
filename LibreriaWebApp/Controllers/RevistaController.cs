@@ -35,8 +35,7 @@ namespace LibreriaWebApp.Controllers
         private RevistaFormViewModel GetDefaultRevistaFormViewModel()
         {
             RevistaFormViewModel revistaFormViewModel = new RevistaFormViewModel();
-            revistaFormViewModel.posiblesTemas = _servicioTema.GetByName("");
-            revistaFormViewModel.posiblesEditoriales = _servicioEditorial.GetByName("");
+            _asignarTemasYEditorialesAViewModel(revistaFormViewModel);
             return revistaFormViewModel;
         }
         
@@ -50,62 +49,75 @@ namespace LibreriaWebApp.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RevistaFormViewModel RevistaFormViewModel)
+        public ActionResult Create(RevistaFormViewModel revistaFormViewModel)
         {
             try
             {
-                RevistaDto RevistaDto = RevistaFormViewModel.ToRevistaDto();
-                _servicioRevista.Add(RevistaDto);
+                RevistaDto revistaDto = revistaFormViewModel.ToRevistaDto();
+                _servicioRevista.Add(revistaDto);
                 return RedirectToAction(nameof(Index));
                 
             }
             catch(Exception e)
             {
                 ViewBag.Message = e.ToString(); 
-                return View(RevistaFormViewModel);
+                _asignarTemasYEditorialesAViewModel(revistaFormViewModel);
+                return View(revistaFormViewModel);
             }
         }
 
-       
-        public ActionResult Edit(int id)
+        private void _asignarTemasYEditorialesAViewModel(RevistaFormViewModel revistaFormViewModel)
         {
-            RevistaDto RevistaDto = _servicioRevista.Get(id);
-            RevistaFormViewModel revistaFormViewModel = new RevistaFormViewModel(RevistaDto);
             revistaFormViewModel.posiblesTemas = _servicioTema.GetByName("");
             revistaFormViewModel.posiblesEditoriales = _servicioEditorial.GetByName("");
+        }
+
+
+        private RevistaFormViewModel _obtenerViewModelDeUnIdDeRevista(int id)
+        {
+            RevistaDto revistaDto = _servicioRevista.Get(id);
+            RevistaFormViewModel revistaFormViewModel = new RevistaFormViewModel(revistaDto);
+            _asignarTemasYEditorialesAViewModel(revistaFormViewModel);
+            return revistaFormViewModel;
+        }
+
+        public ActionResult Edit(int id)
+        {
+            RevistaFormViewModel revistaFormViewModel = _obtenerViewModelDeUnIdDeRevista(id);
             return View(revistaFormViewModel);
         }
 
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, RevistaFormViewModel RevistaFormViewModel)
+        public ActionResult Edit(int id, RevistaFormViewModel revistaFormViewModel)
         {
             try
             {
-                RevistaDto RevistaDto = RevistaFormViewModel.ToRevistaDto();
-                _servicioRevista.Update(id, RevistaDto);
+                RevistaDto revistaDto = revistaFormViewModel.ToRevistaDto();
+                _servicioRevista.Update(id, revistaDto);
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception e)
             {
                 ViewBag.Message = e.Message; 
-                return View();
+                revistaFormViewModel = _obtenerViewModelDeUnIdDeRevista(id);
+                return View(revistaFormViewModel);
             }
         }
 
         
         public ActionResult Delete(int id)
         {
-            RevistaDto RevistaDto = _servicioRevista.Get(id);
-            RevistaFormViewModel RevistaFormViewModel = new RevistaFormViewModel(RevistaDto);
-            return View(RevistaFormViewModel);
+            RevistaDto revistaDto = _servicioRevista.Get(id);
+            RevistaFormViewModel revistaFormViewModel = new RevistaFormViewModel(revistaDto);
+            return View(revistaFormViewModel);
         }
 
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, RevistaDto RevistaDto)
+        public ActionResult Delete(int id, RevistaFormViewModel revistaFormViewModel)
         {
             try
             {
@@ -115,7 +127,8 @@ namespace LibreriaWebApp.Controllers
             catch(Exception e)
             {
                 ViewBag.Message = e.Message; 
-                return View();
+                revistaFormViewModel = _obtenerViewModelDeUnIdDeRevista(id);
+                return View(revistaFormViewModel);
             }
         }
     }

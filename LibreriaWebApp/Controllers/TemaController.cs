@@ -53,7 +53,7 @@ namespace LibreriaWebApp.Controllers
             catch(Exception e)
             {
                 ViewBag.Message = e.Message; 
-                return View();
+                return View(temaDto);
             }
         }
 
@@ -77,7 +77,7 @@ namespace LibreriaWebApp.Controllers
             catch(Exception e)
             {
                 ViewBag.Message = e.Message; 
-                return View();
+                return View(temaDto);
             }
         }
 
@@ -101,7 +101,7 @@ namespace LibreriaWebApp.Controllers
             catch(Exception e)
             {
                 ViewBag.Message = e.Message; 
-                return View();
+                return View(temaDto);
             }
         }
     }

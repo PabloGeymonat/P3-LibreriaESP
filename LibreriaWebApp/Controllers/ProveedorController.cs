@@ -18,21 +18,21 @@ namespace LibreriaWebApp.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<ProveedorDto> ProveedoresDto = _servicioProveedor.GetByName("");
-            ProveedorIndexViewModel ProveedorIndexViewModel = new ProveedorIndexViewModel()
+            IEnumerable<ProveedorDto> proveedoresDto = _servicioProveedor.GetByName("");
+            ProveedorIndexViewModel proveedorIndexViewModel = new ProveedorIndexViewModel()
             {
-                Proveedores = ProveedoresDto
+                Proveedores = proveedoresDto
             };
-            return View(ProveedorIndexViewModel);
+            return View(proveedorIndexViewModel);
         }
 
         [HttpPost]
-        public ActionResult Index(ProveedorIndexViewModel ProveedorIndexViewModel)
+        public ActionResult Index(ProveedorIndexViewModel proveedorIndexViewModel)
         {
-            string nombre = "" + ProveedorIndexViewModel.nombre;
-            IEnumerable<ProveedorDto> ProveedoresDto = _servicioProveedor.GetByName(nombre);
-            ProveedorIndexViewModel.Proveedores = ProveedoresDto;
-            return View(ProveedorIndexViewModel);
+            string nombre = "" + proveedorIndexViewModel.nombre;
+            IEnumerable<ProveedorDto> proveedoresDto = _servicioProveedor.GetByName(nombre);
+            proveedorIndexViewModel.Proveedores = proveedoresDto;
+            return View(proveedorIndexViewModel);
         }
         
         public ActionResult Create()
@@ -43,17 +43,17 @@ namespace LibreriaWebApp.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProveedorDto ProveedorDto)
+        public ActionResult Create(ProveedorDto proveedorDto)
         {
             try
             {
-                ProveedorDto newProveedorDto = _servicioProveedor.Add(ProveedorDto);
+                ProveedorDto newProveedorDto = _servicioProveedor.Add(proveedorDto);
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception e)
             {
                 ViewBag.Message = e.Message; 
-                return View();
+                return View(proveedorDto);
             }
         }
 
@@ -77,7 +77,7 @@ namespace LibreriaWebApp.Controllers
             catch(Exception e)
             {
                 ViewBag.Message = e.Message; 
-                return View();
+                return View(ProveedorDto);
             }
         }
 

@@ -17,7 +17,9 @@ public class RevistaFormViewModel: PublicacionFormViewModel
     {
         Id = revistaDto.Id;
         TemaDto = revistaDto.TemaDto;
+        TemaId = TemaDto.Id;
         EditorialDto = revistaDto.EditorialDto;
+        EditorialId = EditorialDto.Id;
         PrecioSugerido = revistaDto.PrecioSugerido;
         FechaPublicacion = revistaDto.FechaPublicacion;
         CantidadPaginas = revistaDto.CantidadPaginas;
@@ -27,6 +29,7 @@ public class RevistaFormViewModel: PublicacionFormViewModel
         Numero = revistaDto.Numero;
         Anio = revistaDto.Anio;
         TablaContenido = revistaDto.TablaContenido;
+        
     }
 
     public RevistaDto ToRevistaDto()

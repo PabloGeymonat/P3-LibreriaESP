@@ -2,7 +2,7 @@ using Domain.Exceptions;
 
 namespace Domain.Utils;
 
-public class Util
+public static class Util
 {
     public static void ThrowExceptionIfItIsEmpty(Object o, string message)
     {

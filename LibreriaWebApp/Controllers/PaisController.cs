@@ -57,7 +57,6 @@ namespace LibreriaWebApp.Controllers
             }
         }
 
-       
         public ActionResult Edit(int id)
         {
             PaisDto PaisDto = _servicioPais.Get(id);
@@ -77,7 +76,7 @@ namespace LibreriaWebApp.Controllers
             catch(Exception e)
             {
                 ViewBag.Message = e.Message; 
-                return View();
+                return View(paisDto);
             }
         }
 

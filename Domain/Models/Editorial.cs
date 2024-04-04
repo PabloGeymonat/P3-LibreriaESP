@@ -9,12 +9,8 @@ public class Editorial: IValidable, IIdentityById, ICopiable<Editorial>
     public int Id { get; set; }
     public string Nombre { get; set; }
     public Pais PaisOrigen { get; set; }
-
     public int PaisOrigenId { get; set;  }
 
-  
-
-    // Validaciones adicionales según las reglas de negocio
     public void Validar()
     {
         Util.ThrowExceptionIfEmptyString(Nombre, "El nombre de la editorial no puede ser vacío");
