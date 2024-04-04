@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20240328025955_NombreDeLaMigracion2")]
-    partial class NombreDeLaMigracion2
+    [Migration("20240403005503_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,15 +39,16 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Nacionalidad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NacionalidadId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NacionalidadId");
 
                     b.ToTable("Autores");
                 });
@@ -67,7 +68,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("PrecioUnitario")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
 
                     b.Property<int>("PublicacionId")
                         .HasColumnType("int");
@@ -93,10 +95,15 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PaisId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PaisOrigenId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PaisId");
 
                     b.HasIndex("PaisOrigenId");
 
@@ -115,16 +122,19 @@ namespace DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Impuestos")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
 
                     b.Property<int>("ProveedorId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("SubTotal")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
 
                     b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
 
                     b.Property<DateTime>("VencimientoPago")
                         .HasColumnType("datetime2");
@@ -134,6 +144,23 @@ namespace DataAccess.Migrations
                     b.HasIndex("ProveedorId");
 
                     b.ToTable("FacturasDeCompra");
+                });
+
+            modelBuilder.Entity("Domain.Models.Nacionalidad", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Nacionalidades");
                 });
 
             modelBuilder.Entity("Domain.Models.Pais", b =>
@@ -192,7 +219,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PrecioSugerido")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -304,6 +332,17 @@ namespace DataAccess.Migrations
                     b.ToTable("Revistas", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Models.Autor", b =>
+                {
+                    b.HasOne("Domain.Models.Nacionalidad", "Nacionalidad")
+                        .WithMany()
+                        .HasForeignKey("NacionalidadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Nacionalidad");
+                });
+
             modelBuilder.Entity("Domain.Models.DetalleFactura", b =>
                 {
                     b.HasOne("Domain.Models.FacturaDeCompra", "FacturaDeCompra")
@@ -325,6 +364,10 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Editorial", b =>
                 {
+                    b.HasOne("Domain.Models.Pais", null)
+                        .WithMany("Editoriales")
+                        .HasForeignKey("PaisId");
+
                     b.HasOne("Domain.Models.Pais", "PaisOrigen")
                         .WithMany()
                         .HasForeignKey("PaisOrigenId")
@@ -420,6 +463,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.FacturaDeCompra", b =>
                 {
                     b.Navigation("DetallesCompra");
+                });
+
+            modelBuilder.Entity("Domain.Models.Pais", b =>
+                {
+                    b.Navigation("Editoriales");
                 });
 
             modelBuilder.Entity("Domain.Models.Publicacion", b =>

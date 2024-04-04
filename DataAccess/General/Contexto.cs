@@ -27,9 +27,15 @@ namespace DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-            
-            
+
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+            .SelectMany(t => t.GetProperties())
+            .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            {
+                property.SetPrecision(12);
+                property.SetScale(2);
+            }
+
             //definir FK de nacionalidad en Autor
             modelBuilder.Entity<Autor>()
                 .HasOne(a => a.Nacionalidad)  // Un Autor tiene una Nacionalidad

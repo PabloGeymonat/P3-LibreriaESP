@@ -6,39 +6,35 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class NombreDeLaMigracion : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Autores",
+                name: "Nacionalidades",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaDefuncion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Nacionalidad = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Autores", x => x.Id);
+                    table.PrimaryKey("PK_Nacionalidades", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Editoriales",
+                name: "Paises",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PaisOrigen = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Editoriales", x => x.Id);
+                    table.PrimaryKey("PK_Paises", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,6 +64,54 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Autores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaDefuncion = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    NacionalidadId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Autores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Autores_Nacionalidades_NacionalidadId",
+                        column: x => x.NacionalidadId,
+                        principalTable: "Nacionalidades",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Editoriales",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaisOrigenId = table.Column<int>(type: "int", nullable: false),
+                    PaisId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Editoriales", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Editoriales_Paises_PaisId",
+                        column: x => x.PaisId,
+                        principalTable: "Paises",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Editoriales_Paises_PaisOrigenId",
+                        column: x => x.PaisOrigenId,
+                        principalTable: "Paises",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FacturasDeCompra",
                 columns: table => new
                 {
@@ -76,9 +120,9 @@ namespace DataAccess.Migrations
                     ProveedorId = table.Column<int>(type: "int", nullable: false),
                     FechaCompra = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VencimientoPago = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SubTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Impuestos = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    SubTotal = table.Column<decimal>(type: "decimal(12,2)", precision: 12, scale: 2, nullable: false),
+                    Impuestos = table.Column<decimal>(type: "decimal(12,2)", precision: 12, scale: 2, nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(12,2)", precision: 12, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +143,7 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TemaId = table.Column<int>(type: "int", nullable: false),
                     EditorialId = table.Column<int>(type: "int", nullable: false),
-                    PrecioSugerido = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecioSugerido = table.Column<decimal>(type: "decimal(12,2)", precision: 12, scale: 2, nullable: false),
                     FechaPublicacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CantidadPaginas = table.Column<int>(type: "int", nullable: false),
                     ImagenPortada = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -131,7 +175,7 @@ namespace DataAccess.Migrations
                     FacturaDeCompraId = table.Column<int>(type: "int", nullable: false),
                     PublicacionId = table.Column<int>(type: "int", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
-                    PrecioUnitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    PrecioUnitario = table.Column<decimal>(type: "decimal(12,2)", precision: 12, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -236,6 +280,11 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Autores_NacionalidadId",
+                table: "Autores",
+                column: "NacionalidadId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DetallesFactura_FacturaDeCompraId",
                 table: "DetallesFactura",
                 column: "FacturaDeCompraId");
@@ -244,6 +293,16 @@ namespace DataAccess.Migrations
                 name: "IX_DetallesFactura_PublicacionId",
                 table: "DetallesFactura",
                 column: "PublicacionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Editoriales_PaisId",
+                table: "Editoriales",
+                column: "PaisId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Editoriales_PaisOrigenId",
+                table: "Editoriales",
+                column: "PaisOrigenId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FacturasDeCompra_ProveedorId",
@@ -302,10 +361,16 @@ namespace DataAccess.Migrations
                 name: "Proveedores");
 
             migrationBuilder.DropTable(
+                name: "Nacionalidades");
+
+            migrationBuilder.DropTable(
                 name: "Editoriales");
 
             migrationBuilder.DropTable(
                 name: "Temas");
+
+            migrationBuilder.DropTable(
+                name: "Paises");
         }
     }
 }
