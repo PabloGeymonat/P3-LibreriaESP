@@ -23,27 +23,15 @@
         <label asp-for="Nombre" class="control-label+"></label>
         <input asp-for="Nombre" class="form-control"/>
         <span asp-validation-for="Nombre" class="text-danger"></span>
-        
         <label  class="control-label">Nacionalidad</label>
-               
-               
         <div class="form-group">
-            <select sdp-for="NacionalidadId" class="form-control" name ="NacionalidadId">
+            <select asp-for="NacionalidadId" class="form-control" >
                <option value = 0>-- seleccionar la nacionalidad --</option>
                @if (Model.posiblesNacionalidades != null)
                {
                    @foreach (NacionalidadDto nacionalidadDto in Model.posiblesNacionalidades)
                    {
-                       @if (Model.NacionalidadDto.Id == nacionalidadDto.Id)
-                       {
-                           <option value = "@nacionalidadDto.Id" selected>@nacionalidadDto.Nombre</option>
-                       }
-                       else
-                       {
-                           <option value = "@nacionalidadDto.Id">@nacionalidadDto.Nombre</option>
-                       }
-
-                       
+                      <option value = "@nacionalidadDto.Id">@nacionalidadDto.Nombre</option>
                    }
                }
            </select>

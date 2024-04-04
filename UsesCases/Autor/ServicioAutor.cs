@@ -34,9 +34,9 @@ namespace UsesCases {
             return autoresDto;
         }
 
-        public IEnumerable<AutorDto> GetNacionalidad(Nacionalidad nacionalidad)
+        public IEnumerable<AutorDto> GetNacionalidad(int nacionalidadId)
         {
-            IEnumerable<Autor> autores = _repository.GetNacionalidad(nacionalidad);
+            IEnumerable<Autor> autores = _repository.GetNacionalidad(nacionalidadId);
             IEnumerable<AutorDto> autoresDto = _mapper.Map<IEnumerable<AutorDto>>(autores);;
             return autoresDto;
         }

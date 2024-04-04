@@ -9,8 +9,7 @@ public class FacturaDeCompraDto
     public DateTime VencimientoPago { get; set; }
     public List<DetalleFacturaDto> DetallesCompra { get; set; } = new List<DetalleFacturaDto>();
     
-    
-    public decimal SubTotal { get; set; } //=> DetallesCompra.Sum(dc => dc.Cantidad * dc.PrecioUnitario);
+    public decimal SubTotal { get; set; } 
     public decimal Impuestos { get; set; }
-    public decimal Total { get; set; } //=> SubTotal + Impuestos;
+    public decimal Total { get; set; } 
 }

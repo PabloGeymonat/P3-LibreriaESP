@@ -33,6 +33,10 @@
     <AdditionalFiles Include="Views\Autor\Delete.cshtml" />
     <AdditionalFiles Include="Views\Autor\Edit.cshtml" />
     <AdditionalFiles Include="Views\Autor\Index.cshtml" />
+    <AdditionalFiles Include="Views\Libro\Create.cshtml" />
+    <AdditionalFiles Include="Views\Libro\Delete.cshtml" />
+    <AdditionalFiles Include="Views\Libro\Edit.cshtml" />
+    <AdditionalFiles Include="Views\Libro\Index.cshtml" />
     <AdditionalFiles Include="Views\Pais\Create.cshtml" />
     <AdditionalFiles Include="Views\Pais\Delete.cshtml" />
     <AdditionalFiles Include="Views\Pais\Edit.cshtml" />

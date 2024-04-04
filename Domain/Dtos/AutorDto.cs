@@ -1,4 +1,5 @@
 using Domain.Interfaces;
+using Domain.Utils;
 
 namespace Domain.Dtos;
 
@@ -15,7 +16,8 @@ public class AutorDto: IValidable
     public IList<PublicacionAutorDto> Publicaciones { get; set; } = new List<PublicacionAutorDto>();
     public void Validar()
     {
-       return;
+        Util.ThrowExceptionIfEmptyString(Nombre, "El nombre del autor no debe ser vacío");
+        Util.ThrowExceptionIfZero(NacionalidadId, "El autor debe tener nacionalidad cargada");
     }
    
 }

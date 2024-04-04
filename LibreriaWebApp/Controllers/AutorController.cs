@@ -24,7 +24,8 @@ namespace LibreriaWebApp.Controllers
             IEnumerable<AutorDto> AutorDtos = _servicioAutor.GetByName("");
             AutorIndexViewModel autorIndexViewModel = new AutorIndexViewModel()
             {
-                Autores = AutorDtos
+                Autores = AutorDtos,
+                NacionalidadDtos = _servicioAutoNacionalidad.GetByName("")
             };
             return View(autorIndexViewModel);
         }
@@ -38,8 +39,8 @@ namespace LibreriaWebApp.Controllers
                 case "POR_NOMBRE":
                     autorDtos = _servicioAutor.GetByName("" + autorIndexViewModel.nombre);
                     break;
-               // case "POR_NACIONALIDAD":
-                  //  autorDtos = _servicioAutor.GetNacionalidad("" + autorIntexViewModel.Nacionalidad);
+                case "POR_NACIONALIDAD":
+                   autorDtos = _servicioAutor.GetNacionalidad(autorIndexViewModel.NacionalidadId);
                     break;
                 case "POR_FECHA_DE_NACIMIENTO":
                     autorDtos = _servicioAutor.GetFechaDeNacimentoEntreDosFechas(autorIndexViewModel.FechaNacimientoDesde, autorIndexViewModel.FechaNacimientoHasta);
@@ -51,8 +52,10 @@ namespace LibreriaWebApp.Controllers
                     autorDtos = _servicioAutor.GetByName("" + autorIndexViewModel.nombre);
                     break;
             }
+
             
             autorIndexViewModel.Autores = autorDtos;
+            autorIndexViewModel.NacionalidadDtos = _servicioAutoNacionalidad.GetByName("");
             return View(autorIndexViewModel);
         }
 

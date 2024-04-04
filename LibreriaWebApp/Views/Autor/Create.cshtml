@@ -24,7 +24,7 @@
         
         <label  class="control-label">Nacionalidad</label>
         <div class="form-group">
-            <select sdp-for="NacionalidadId" class="form-control" name ="NacionalidadId">
+            <select asp-for="NacionalidadId" class="form-control">
                 <option value = 0>-- seleccionar la nacionalidad --</option>
                 @if (Model.posiblesNacionalidades != null)
                 {

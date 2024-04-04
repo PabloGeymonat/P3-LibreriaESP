@@ -9,7 +9,6 @@ public class Revista : Publicacion,  ICopiable<Revista>
     public int Numero { get; set; }
     public int Anio { get; set; }
     public string TablaContenido { get; set; }
-    // Validaciones adicionales para nombre y contenido
     public void Copy(Revista model)
     {
         Nombre = model.Nombre;
@@ -17,8 +16,6 @@ public class Revista : Publicacion,  ICopiable<Revista>
         Anio = model.Anio;
         TablaContenido = model.TablaContenido;
         base.Copy(model);
-    
-        
     }
 
     public override void Validar()

@@ -1,5 +1,6 @@
 using Domain.Exceptions;
 using Domain.Interfaces;
+using Domain.Utils;
 
 namespace Domain.Dtos;
 
@@ -10,9 +11,6 @@ public class NacionalidadDto: IValidable, IIdentityById
 
     public void Validar()
     {
-        if (String.IsNullOrEmpty(Nombre))
-        {
-            throw new ElementoInvalidoException("El nombre de la nacionalidad no puede ser vacío");
-        }
+        Util.ThrowExceptionIfEmptyString(Nombre,"El nombre de la nacionalidad no puede ser vacío");
     }
 }

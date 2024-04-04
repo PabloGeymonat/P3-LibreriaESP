@@ -19,11 +19,8 @@ public abstract class Publicacion: IValidable, IIdentityById, ICopiable<Publicac
     public string ImagenPortada { get; set; }
     public int Stock { get; set; }
 
-    // Relación muchos a muchos con Autor
     public IList<PublicacionAutor> Autores { get; set; } = new List<PublicacionAutor>();
 
-    
-    
     public virtual void Validar()
     {
         Util.ThrowExceptionIfZero(TemaId, "Falta el tema de la publicación");

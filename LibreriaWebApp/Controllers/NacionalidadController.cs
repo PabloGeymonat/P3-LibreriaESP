@@ -18,21 +18,21 @@ namespace LibreriaWebApp.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<NacionalidadDto> NacionalidadesDto = _servicioNacionalidad.GetByName("");
-            NacionalidadViewModel NacionalidadViewModel = new NacionalidadViewModel()
+            IEnumerable<NacionalidadDto> nacionalidadesDto = _servicioNacionalidad.GetByName("");
+            NacionalidadViewModel nacionalidadViewModel = new NacionalidadViewModel()
             {
-                Nacionalidades = NacionalidadesDto
+                Nacionalidades = nacionalidadesDto
             };
-            return View(NacionalidadViewModel);
+            return View(nacionalidadViewModel);
         }
 
         [HttpPost]
-        public ActionResult Index(NacionalidadViewModel NacionalidadViewModel)
+        public ActionResult Index(NacionalidadViewModel nacionalidadViewModel)
         {
-            string nombre = "" + NacionalidadViewModel.nombre;
-            IEnumerable<NacionalidadDto> NacionalidadesDto = _servicioNacionalidad.GetByName(nombre);
-            NacionalidadViewModel.Nacionalidades = NacionalidadesDto;
-            return View(NacionalidadViewModel);
+            string nombre = "" + nacionalidadViewModel.nombre;
+            IEnumerable<NacionalidadDto> nacionalidadesDto = _servicioNacionalidad.GetByName(nombre);
+            nacionalidadViewModel.Nacionalidades = nacionalidadesDto;
+            return View(nacionalidadViewModel);
         }
         
         public ActionResult Create()
@@ -43,11 +43,11 @@ namespace LibreriaWebApp.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(NacionalidadDto NacionalidadDto)
+        public ActionResult Create(NacionalidadDto nacionalidadDto)
         {
             try
             {
-                NacionalidadDto newNacionalidadDto = _servicioNacionalidad.Add(NacionalidadDto);
+                NacionalidadDto newNacionalidadDto = _servicioNacionalidad.Add(nacionalidadDto);
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception e)
@@ -67,11 +67,11 @@ namespace LibreriaWebApp.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, NacionalidadDto NacionalidadDto)
+        public ActionResult Edit(int id, NacionalidadDto nacionalidadDto)
         {
             try
             {
-                _servicioNacionalidad.Update(id, NacionalidadDto);
+                _servicioNacionalidad.Update(id, nacionalidadDto);
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception e)
@@ -84,14 +84,14 @@ namespace LibreriaWebApp.Controllers
         
         public ActionResult Delete(int id)
         {
-            NacionalidadDto NacionalidadDto = _servicioNacionalidad.Get(id);
-            return View(NacionalidadDto);
+            NacionalidadDto nacionalidadDto = _servicioNacionalidad.Get(id);
+            return View(nacionalidadDto);
         }
 
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, NacionalidadDto NacionalidadDto)
+        public ActionResult Delete(int id, NacionalidadDto nacionalidadDto)
         {
             try
             {

@@ -55,19 +55,19 @@ namespace LibreriaWebApp.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(EditorialFormViewModel EditorialFormViewModel)
+        public ActionResult Create(EditorialFormViewModel editorialFormViewModel)
         {
             try
             {
-                EditorialDto EditorialDto = EditorialFormViewModel.ToEditorialDto();
+                EditorialDto EditorialDto = editorialFormViewModel.ToEditorialDto();
                 _servicioEditorial.Add(EditorialDto);
                 return RedirectToAction(nameof(Index));
                 
             }
             catch(Exception e)
             {
-                ViewBag.Message = e.ToString(); 
-                return View(EditorialFormViewModel);
+                ViewBag.Message = e.Message; 
+                return View(editorialFormViewModel);
             }
         }
 

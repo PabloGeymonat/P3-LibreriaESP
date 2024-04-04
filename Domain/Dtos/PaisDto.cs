@@ -1,5 +1,6 @@
 using Domain.Exceptions;
 using Domain.Interfaces;
+using Domain.Utils;
 
 namespace Domain.Dtos;
 
@@ -11,10 +12,8 @@ public class PaisDto: IValidable, IIdentityById
 
     public void Validar()
     {
-        if (String.IsNullOrEmpty(Nombre))
-        {
-            throw new ElementoInvalidoException("El nombre del pais no puede ser vacío");
-        }
+        Util.ThrowExceptionIfEmptyString(Nombre,"El nombre del pais no puede ser vacío");
+        
     }
 
 }

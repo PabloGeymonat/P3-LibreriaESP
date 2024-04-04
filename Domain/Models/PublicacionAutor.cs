@@ -7,6 +7,6 @@ public class PublicacionAutor
     
     public int AutorId { get; set; }
     public Autor Autor { get; set; }
+    
 
-    // Atributos adicionales de la relación, si los hay
 }
