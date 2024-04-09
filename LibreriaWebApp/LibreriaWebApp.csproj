@@ -41,6 +41,10 @@
     <AdditionalFiles Include="Views\Pais\Delete.cshtml" />
     <AdditionalFiles Include="Views\Pais\Edit.cshtml" />
     <AdditionalFiles Include="Views\Pais\Index.cshtml" />
+    <AdditionalFiles Include="Views\Parametro\Create.cshtml" />
+    <AdditionalFiles Include="Views\Parametro\Delete.cshtml" />
+    <AdditionalFiles Include="Views\Parametro\Edit.cshtml" />
+    <AdditionalFiles Include="Views\Parametro\Index.cshtml" />
   </ItemGroup>
 
 </Project>

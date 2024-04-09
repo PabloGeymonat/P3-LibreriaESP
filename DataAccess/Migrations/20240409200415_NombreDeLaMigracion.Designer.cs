@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20240403005503_init")]
-    partial class init
+    [Migration("20240409200415_NombreDeLaMigracion")]
+    partial class NombreDeLaMigracion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -178,6 +178,20 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Paises");
+                });
+
+            modelBuilder.Entity("Domain.Models.Parametro", b =>
+                {
+                    b.Property<string>("Clave")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Valor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Clave");
+
+                    b.ToTable("Parametro");
                 });
 
             modelBuilder.Entity("Domain.Models.Proveedor", b =>

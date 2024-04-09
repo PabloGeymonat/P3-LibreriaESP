@@ -1,0 +1,50 @@
+@model LibreriaWebApp.Models.ParametroIndexViewModel
+
+@{
+    ViewData["Title"] = "Detalle de Parámetros";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Index" method="post">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-4">
+                <input type="text" name="Clave" class="form-control" placeholder="Buscar por clave..." value="@Model.Clave"/>
+            </div>
+            <div class="col-4">
+                    <button type="submit" class="btn btn-primary">Buscar</button>            
+            </div>
+        </div>
+    </div>
+</form>
+
+<a asp-action="Create" class="btn btn-success" style="float: right">Crear Nuevo</a>
+
+<table class="table table-striped mt-3">
+    <thead>
+    <tr>
+        <th>Clave</th>
+        <th>Valor</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var tema in Model.Parametros)
+    {
+        <tr>
+            <td>@tema.Clave</td>
+            <td>@tema.Valor</td>
+            <td>
+                <a asp-action="Edit" asp-route-clave="@tema.Clave" class="btn btn-info">Editar</a>
+            </td>
+            <td>
+                <form asp-action="Delete" asp-route-clave="@tema.Clave" method="get" >
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

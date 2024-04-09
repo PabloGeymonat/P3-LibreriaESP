@@ -41,9 +41,46 @@ namespace LibreriaWebApp
 
             builder.Services.AddScoped(typeof(IRepositoryLibro), typeof(RepositorioLibro));
             builder.Services.AddScoped(typeof(IServicioLibro), typeof(ServicioLibro));
+            
+            builder.Services.AddScoped(typeof(IRepositoryParametro), typeof(RepositoryParametro));
+            builder.Services.AddScoped(typeof(IServicioParametro), typeof(ServicioParametro));
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            /*
+                Al pasar AppDomain.CurrentDomain.GetAssemblies() a AddAutoMapper, le estás diciendo a AutoMapper que busque 
+                en todos los ensamblados cargados en el dominio de aplicación por clases que heredan de Profile, las cuales contienen 
+                configuraciones de mapeo entre tipos. AutoMapper utiliza estas configuraciones para realizar las operaciones de mapeo.
+            */
             
+            /*
+             * AddScoped (Scoped):
+               
+               builder.Services.AddScoped registra un servicio con un tiempo de vida de ámbito (scoped). Un servicio registrado 
+               como Scoped es creado una vez por solicitud dentro de la aplicación. Esto significa que, en una aplicación web, 
+               una nueva instancia del servicio será creada para cada solicitud HTTP y todos los componentes que procesan esa 
+               solicitud compartirán la misma instancia del servicio. Este tiempo de vida es útil para servicios que deben mantener 
+               un estado consistente dentro de una solicitud, pero no se deben compartir entre diferentes solicitudes.
+               AddDbContext (Scoped por defecto):
+               
+               AddDbContext 
+               
+               es un método específico para registrar un contexto de base de datos de Entity Framework Core en el 
+               contenedor de DI. Por defecto, los contextos de base de datos registrados con AddDbContext tienen un tiempo de 
+               vida Scoped, lo que significa que se comportan de la misma manera que los servicios registrados con AddScoped. 
+               Sin embargo, puedes cambiar el tiempo de vida al registrar el contexto si es necesario. Registrar un contexto 
+               de base de datos como Scoped asegura que las operaciones realizadas en una sola solicitud compartan el mismo contexto y, 
+               por tanto, puedan participar en la misma transacción de base de datos.
+               AddSingleton (Singleton):
+               
+               AddSingleton 
+               
+               registra un servicio con un tiempo de vida de singleton. Un servicio registrado 
+               como Singleton se crea solo una vez durante el ciclo de vida de la aplicación y esa misma instancia se reutiliza en 
+               todas las solicitudes y componentes que necesiten ese servicio. Esto es útil para servicios que mantienen un estado 
+               global o que son costosos de crear y se pueden compartir de forma segura entre diferentes solicitudes. Sin embargo, 
+               debes tener cuidado con los servicios singleton para evitar problemas de concurrencia y asegurarte de que el servicio 
+               pueda funcionar de manera segura en un entorno multi-hilo.
+             */
             /***/
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -61,6 +98,9 @@ namespace LibreriaWebApp
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute(
+                name: "parametro",
+                pattern: "{controller=Home}/{action=Index}/{clave?}");
             app.Run();
         }
     }

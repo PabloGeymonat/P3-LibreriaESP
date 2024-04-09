@@ -177,6 +177,20 @@ namespace DataAccess.Migrations
                     b.ToTable("Paises");
                 });
 
+            modelBuilder.Entity("Domain.Models.Parametro", b =>
+                {
+                    b.Property<string>("Clave")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Valor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Clave");
+
+                    b.ToTable("Parametro");
+                });
+
             modelBuilder.Entity("Domain.Models.Proveedor", b =>
                 {
                     b.Property<int>("Id")

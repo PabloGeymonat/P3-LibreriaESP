@@ -6,6 +6,7 @@ namespace DataAccess
 {
     public class Contexto: DbContext
     {
+        
         public DbSet<Tema> Temas { get; set; }
         public DbSet<Pais> Paises { get; set; }
         public DbSet<Nacionalidad> Nacionalidades { get; set; }
@@ -19,7 +20,7 @@ namespace DataAccess
         public DbSet<FacturaDeCompra> FacturasDeCompra { get; set; }
         public DbSet<DetalleFactura> DetallesFactura { get; set; }
         public DbSet<PublicacionAutor> PublicacionAutor { get; set; } // Clase de asociación para la relación muchos a muchos
-        
+        public DbSet<Parametro> Parametro { get; set; }
         public Contexto(DbContextOptions options): base(options) 
         { 
         
@@ -28,14 +29,11 @@ namespace DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            foreach (var property in modelBuilder.Model.GetEntityTypes()
-            .SelectMany(t => t.GetProperties())
-            .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
-            {
-                property.SetPrecision(12);
-                property.SetScale(2);
-            }
+            SetPrecisionForDecimal(modelBuilder);
 
+            modelBuilder.Entity<Parametro>(p => p.HasKey(p => p.Clave));
+            
+            
             //definir FK de nacionalidad en Autor
             modelBuilder.Entity<Autor>()
                 .HasOne(a => a.Nacionalidad)  // Un Autor tiene una Nacionalidad
@@ -99,15 +97,19 @@ namespace DataAccess
            
             base.OnModelCreating(modelBuilder);
         }
-
-
-
-
-
-
-
+        
+        private void SetPrecisionForDecimal(ModelBuilder modelBuilder){
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                         .SelectMany(t => t.GetProperties())
+                         .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            {
+                property.SetPrecision(12);
+                property.SetScale(2);
+            }
+        }
 
     }
 
     
+
 }
