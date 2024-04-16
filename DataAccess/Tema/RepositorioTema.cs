@@ -8,13 +8,13 @@ namespace DataAccess
     {
         public RepositorioTema(DbContext dbContext) 
         {
-            Contexto = dbContext;
+            contexto = dbContext;
         }
 
 
         public IEnumerable<Tema> GetByName(string nombre)
         {
-            IEnumerable<Tema> temas = Contexto.Set<Tema>()
+            IEnumerable<Tema> temas = contexto.Set<Tema>()
                                         .Where(tema => tema.Nombre.Contains(nombre));
             return temas;
         }

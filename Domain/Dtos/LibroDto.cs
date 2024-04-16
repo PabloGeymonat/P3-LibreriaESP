@@ -15,4 +15,9 @@ public class LibroDto : PublicacionDto
         Util.ThrowExceptionIfEmptyString(Titulo, "El título no puede ser vacío");
         
     }
+
+    public override string GetDescription()
+    {
+        return "Libro: " + Titulo;
+    }
 }

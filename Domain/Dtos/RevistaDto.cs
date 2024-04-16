@@ -17,4 +17,8 @@ public class RevistaDto : PublicacionDto
         Util.ThrowExceptionIfNegativeNumber(Anio, "El anio no puede ser negativo");
         Util.ThrowExceptionIfEmptyString(TablaContenido, "La trabla de contenido no puede estar vacía");
     }
+    public override string GetDescription()
+    {
+        return "Revista: " + Nombre + " número: " + Numero + " año " + Anio;
+    }
 }

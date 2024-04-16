@@ -28,5 +28,7 @@ public abstract class PublicacionDto: IValidable, IIdentityById
         Util.ThrowExceptionIfNegativeNumber(Stock, "El stock no puede ser negativo");
         Util.ThrowExceptionIfFutureDate(FechaPublicacion, "La fecha de la publicación no puede ser fecha futura");
     }
-    
+
+    public abstract string GetDescription();
+
 }

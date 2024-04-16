@@ -8,13 +8,13 @@ namespace DataAccess
     {
         public RepositorioLibro(DbContext dbContext) 
         {
-            Contexto = dbContext;
+            contexto = dbContext;
         }
 
 
         public IEnumerable<Libro> GetByISBN(string ISBN)
         {
-            IEnumerable<Libro> Libros = Contexto.Set<Libro>()
+            IEnumerable<Libro> Libros = contexto.Set<Libro>()
                                         .Include(r=>r.Editorial)
                                         .Include(r=>r.Tema)
                                         .Where(l => l.ISBN.Contains(ISBN));
@@ -23,7 +23,7 @@ namespace DataAccess
         
         public override Libro Get(int id)
         {
-            Libro Libro = Contexto.Set<Libro>()
+            Libro Libro = contexto.Set<Libro>()
                 .Include(r=>r.Editorial)
                 .Include(r=>r.Tema)
                 .FirstOrDefault(e => e.Id == id);

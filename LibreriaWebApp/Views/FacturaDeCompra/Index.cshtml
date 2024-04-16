@@ -1,0 +1,121 @@
+@using Domain.Dtos
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model LibreriaWebApp.Models.FacturaDeCompraIndexViewModel
+
+@{
+    ViewData["Title"] = "Detalle de Autors";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!--
+ IEnumerable<FacturaDeCompra> GetByProveedor(int proveedorId);
+        IEnumerable<FacturaDeCompra> GetFechaCompraBetwenDates(DateTime desde, DateTime hasta);
+        IEnumerable<FacturaDeCompra> GetByPublicacion(int publicacionId);
+-->
+
+<form asp-action="Index" method="post">
+    <input type="hidden" name="TipoReporte" value="POR_PROVEEDOR" />
+    @Html.HiddenFor(model => model.TipoReporte)
+    <label  class="control-label">ProveedorId</label>
+     <div class="form-group">
+        <div class="row">
+            <div class="col-4">
+                <select asp-for="ProveedorId" class="form-control" name ="ProveedorId">
+                    <option value = 0>-- seleccionar el proveedor --</option>
+                    @if (Model.ProveedorDtos != null)
+                    {
+                        @foreach (ProveedorDto proveedorDto in Model.ProveedorDtos)
+                        {
+                            <option value = "@proveedorDto.Id">@proveedorDto.Nombre</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form asp-action="Index" method="post">
+    <input type="hidden" name="TipoReporte" value="POR_PUBLICACION" />
+    @Html.HiddenFor(model => model.TipoReporte)
+    <label  class="control-label">PublicacionId</label>
+     <div class="form-group">
+        <div class="row">
+            <div class="col-4">
+                <select asp-for="PublicacionId" class="form-control" name ="PublicacionId">
+                    <option value = 0>-- seleccionar la publicacion --</option>
+                    @if (Model.PublicacionDtos != null)
+                    {
+                        @foreach (PublicacionDto publicacionDto in Model.PublicacionDtos)
+                        {
+                            <option value = "@publicacionDto.Id">@publicacionDto.GetDescription()</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form asp-action="Index" method="post">
+    <input type="hidden" name="TipoReporte" value="POR_FECHA_DE_COMPRA" />
+    @Html.HiddenFor(model => model.TipoReporte)
+    <div class="form-group">
+        <div class="row mt-3">
+
+            <div class="col-2">
+                <input asp-for="FechaDeCompraDesde" name="FechaDeCompraDesde" class="form-control" placeholder="Comprado entre"/>
+            </div>
+            <div class="col-2">
+                <input asp-for="FechaDeCompraHasta" name="FechaDeCompraHasta" class="form-control" placeholder="hasta"/>
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+         
+
+
+
+<a asp-action="Create" class="btn btn-success" style="float: right">Nueva factura</a>
+
+<table class="table table-striped mt-3">
+    
+
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Vto</th>
+        <th>Proveedor</th>
+        <th>Sub Total</th>
+        <th>Impuestos</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var facturaDeCompraDto in Model.FacturaDeCompraDtos)
+    {
+        <tr>
+            <td>@facturaDeCompraDto.Id</td>
+            <td>@facturaDeCompraDto.FechaCompra</td>
+            <td>@facturaDeCompraDto.VencimientoPago</td>
+            <td>@facturaDeCompraDto.ProveedorDto.Nombre</td>
+            <td>@facturaDeCompraDto.SubTotal</td>
+            <td>@facturaDeCompraDto.Impuestos</td>
+            <td>@facturaDeCompraDto.Total</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a asp-action="CreateFake" class="btn btn-success" style="float: right">Crear falsas</a>

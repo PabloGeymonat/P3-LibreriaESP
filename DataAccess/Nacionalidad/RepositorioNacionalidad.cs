@@ -8,13 +8,13 @@ namespace DataAccess
     {
         public RepositorioNacionalidad(DbContext dbContext) 
         {
-            Contexto = dbContext;
+            contexto = dbContext;
         }
 
 
         public IEnumerable<Nacionalidad> GetByName(string nombre)
         {
-            IEnumerable<Nacionalidad> Nacionalidads = Contexto.Set<Nacionalidad>()
+            IEnumerable<Nacionalidad> Nacionalidads = contexto.Set<Nacionalidad>()
                                         .Where(Nacionalidad => Nacionalidad.Nombre.Contains(nombre));
             return Nacionalidads;
         }

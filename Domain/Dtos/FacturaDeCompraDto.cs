@@ -1,6 +1,8 @@
+using Domain.Interfaces;
+
 namespace Domain.Dtos;
 
-public class FacturaDeCompraDto
+public class FacturaDeCompraDto : IValidable
 {
     public int Id { get; set; }
     public int ProveedorId { get; set; }
@@ -11,5 +13,9 @@ public class FacturaDeCompraDto
     
     public decimal SubTotal { get; set; } 
     public decimal Impuestos { get; set; }
-    public decimal Total { get; set; } 
+    public decimal Total { get; set; }
+    public void Validar()
+    {
+        throw new NotImplementedException();
+    }
 }

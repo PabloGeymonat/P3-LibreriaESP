@@ -10,31 +10,31 @@ namespace DataAccess
 {
     public class Repository<T> : IRepository<T> where T : class, IIdentityById 
     {
-        protected DbContext Contexto { get; set; }
+        protected DbContext contexto { get; set; }
 
      
         public T Add(T item)
         {
-           Contexto.Set<T>().Add(item);
-           Contexto.SaveChanges();
+           contexto.Set<T>().Add(item);
+           contexto.SaveChanges();
            return item;
         }
 
         public void Remove(T item)
         {
-            Contexto.Set<T>().Remove(item);
-            Contexto.SaveChanges();
+            contexto.Set<T>().Remove(item);
+            contexto.SaveChanges();
         }
 
         public void Update(T item)
         {
-            Contexto.Entry(item).State = EntityState.Modified;
-            Contexto.SaveChanges();
+            contexto.Entry(item).State = EntityState.Modified;
+            contexto.SaveChanges();
         }
         
         public virtual T Get(int id)
         {
-            T item = Contexto.Set<T>().FirstOrDefault(e => e.Id == id);
+            T item = contexto.Set<T>().FirstOrDefault(e => e.Id == id);
             return item;
         }
     }

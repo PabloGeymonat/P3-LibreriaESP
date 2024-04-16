@@ -44,7 +44,13 @@ namespace LibreriaWebApp
             
             builder.Services.AddScoped(typeof(IRepositoryParametro), typeof(RepositoryParametro));
             builder.Services.AddScoped(typeof(IServicioParametro), typeof(ServicioParametro));
+            
+            builder.Services.AddScoped(typeof(IRepositoryFacturaDeCompra), typeof(RepositorioFacturaDeCompra));
+            builder.Services.AddScoped(typeof(IServicioFacturaDeCompra), typeof(ServicioFacturaDeCompra));
 
+            builder.Services.AddScoped(typeof(IRepositoryPublicacion), typeof(RepositorioPublicacion));
+            builder.Services.AddScoped(typeof(IServicioPublicacion), typeof(ServicioPublicacion));
+            
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             /*
                 Al pasar AppDomain.CurrentDomain.GetAssemblies() a AddAutoMapper, le estás diciendo a AutoMapper que busque 

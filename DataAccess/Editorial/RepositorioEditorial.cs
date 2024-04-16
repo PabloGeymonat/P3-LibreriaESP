@@ -9,13 +9,13 @@ namespace DataAccess
     {
         public RepositorioEditorial(DbContext dbContext) 
         {
-            Contexto = dbContext;
+            contexto = dbContext;
         }
 
 
         public IEnumerable<Editorial> GetByName(string nombre)
         {
-            IEnumerable<Editorial> Editorials = Contexto.Set<Editorial>()
+            IEnumerable<Editorial> Editorials = contexto.Set<Editorial>()
                                         .Include(p=>p.PaisOrigen)
                                         .Where(Editorial => Editorial.Nombre.Contains(nombre));
             return Editorials;
@@ -23,7 +23,7 @@ namespace DataAccess
         
         public override Editorial Get(int id)
         {
-            Editorial editorial = Contexto.Set<Editorial>()
+            Editorial editorial = contexto.Set<Editorial>()
                 .Include(p =>p.PaisOrigen)
                 .FirstOrDefault(e => e.Id == id);
                 

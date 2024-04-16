@@ -1,6 +1,7 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace DataAccess
 {
@@ -8,13 +9,13 @@ namespace DataAccess
     {
         public RepositorioPais(DbContext dbContext) 
         {
-            Contexto = dbContext;
+            contexto = dbContext;
         }
 
 
         public IEnumerable<Pais> GetByName(string nombre)
         {
-            IEnumerable<Pais> Paiss = Contexto.Set<Pais>()
+            IEnumerable<Pais> Paiss = contexto.Set<Pais>()
                                         .Where(Pais => Pais.Nombre.Contains(nombre));
             return Paiss;
         }
