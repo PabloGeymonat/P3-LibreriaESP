@@ -19,6 +19,7 @@ public class FacturaDeCompraFormViewModel
     public IEnumerable<ProveedorDto> posiblesProveedores { get; set; }
     public IEnumerable<PublicacionDto> posiblesPublicaciones { get; set; }
     
+    public DetalleFacturaDto NewLine { get; set; } = new DetalleFacturaDto();
     public FacturaDeCompraFormViewModel()
     {
     }

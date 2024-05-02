@@ -9,6 +9,8 @@ public class RevistaFormViewModel: PublicacionFormViewModel
     public int Anio { get; set; }
     public string TablaContenido { get; set; }
 
+
+
     public RevistaFormViewModel()
     {
     }
