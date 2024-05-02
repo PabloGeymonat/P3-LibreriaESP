@@ -8,14 +8,10 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<!--
- IEnumerable<FacturaDeCompra> GetByProveedor(int proveedorId);
-        IEnumerable<FacturaDeCompra> GetFechaCompraBetwenDates(DateTime desde, DateTime hasta);
-        IEnumerable<FacturaDeCompra> GetByPublicacion(int publicacionId);
--->
 
 <form asp-action="Index" method="post">
     <input type="hidden" name="TipoReporte" value="POR_PROVEEDOR" />
+
     @Html.HiddenFor(model => model.TipoReporte)
     <label  class="control-label">ProveedorId</label>
      <div class="form-group">

@@ -12,8 +12,9 @@ public class AutorProfile: Profile
         
         CreateMap<AutorDto, Autor>();
         // Mapeo de Nacionalidad a NacionalidadDto
-       // Mapeo de Autor a AutorDto, incluyendo la Nacionalidad
+        // Mapeo de Autor a AutorDto, incluyendo la Nacionalidad
         CreateMap<Autor, AutorDto>()
-            .ForMember(dest => dest.NacionalidadDto, act => act.MapFrom(src => src.Nacionalidad));
+            .ForMember(dest => dest.NacionalidadDto, 
+                       act => act.MapFrom(src => src.Nacionalidad));
     }
 }

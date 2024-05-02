@@ -10,7 +10,7 @@ public class LibroProfile: Profile
     {
         CreateMap<LibroDto, Libro>();
         CreateMap<Libro, LibroDto>()
-            .ForMember(dest => dest.TemaDto, act => act.MapFrom(src => src.Tema))
+            .ForMember(dest => dest.TemaDto,act => act.MapFrom(src => src.Tema))
             .ForMember(dest => dest.EditorialDto, act => act.MapFrom(src => src.Editorial));
     }
 }

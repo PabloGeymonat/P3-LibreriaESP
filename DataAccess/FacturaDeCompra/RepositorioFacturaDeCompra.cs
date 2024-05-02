@@ -31,9 +31,8 @@ namespace DataAccess
         public IEnumerable<FacturaDeCompra> GetByPublicacion(int publicacionId)
         {
             return contexto.Set<FacturaDeCompra>()
-                .Include(f=>f.Proveedor)
-                .Where(f =>
-                    f.DetallesCompra.Any(d => d.Publicacion.Id == publicacionId)
+                .Include(f => f.Proveedor)
+                .Where(f => f.DetallesCompra.Any(d => d.Publicacion.Id == publicacionId)
                 );
         }
     }

@@ -32,13 +32,15 @@ public class RepositoryParametro: IRepositoryParametro
         
     public virtual Parametro Get(string clave)
     {
-        Parametro item = _contexto.Set<Parametro>().FirstOrDefault(e => e.Clave.CompareTo(clave)==0);
+        Parametro item = _contexto.Set<Parametro>().
+                FirstOrDefault(e => e.Clave.CompareTo(clave)==0);
         return item;
     }
 
     public IEnumerable<Parametro> GetManyByKey(string clave)
     {
-        IEnumerable<Parametro> parametros = _contexto.Set<Parametro>().Where(p => p.Clave.Contains(clave));
+        IEnumerable<Parametro> parametros = _contexto.Set<Parametro>()
+                            .Where(p => p.Clave.Contains(clave));
         return parametros;
     }
 }

@@ -44,13 +44,13 @@ namespace UsesCases
 
             // Primero definimos y configuramos el Faker para los detalles de la factura
             var detalleFaker = new Faker<DetalleFactura>()
-                .RuleFor(o => o.PublicacionId, f => f.PickRandom(new[] { 2, 3 }))  // Rotación entre 1, 2 y 3
+                .RuleFor(o => o.PublicacionId, f => f.PickRandom(new[] { 1, 2 }))  // Rotación entre 1, 2 y 3
                 .RuleFor(o => o.Cantidad, f => f.Random.Int(1, 20))
                 .RuleFor(o => o.PrecioUnitario, f => f.Random.Decimal(50, 200))
                 .RuleFor(o => o.IvaAplicado, f => f.Random.ArrayElement(new decimal[] { 0, 5, 10, 15 }));
 
             var facturaFaker = new Faker<FacturaDeCompra>()
-                .RuleFor(o => o.ProveedorId, 2)  // Proveedor fijo
+                .RuleFor(o => o.ProveedorId, f => f.PickRandom(new[] { 1, 2 }))  // Proveedor fijo
                 .RuleFor(o => o.FechaCompra, f => f.Date.Recent(90))
                 .RuleFor(o => o.VencimientoPago, (f, o) => o.FechaCompra.AddDays(30))
                 .RuleFor(o => o.DetallesCompra, f => detalleFaker.Generate(3)) 

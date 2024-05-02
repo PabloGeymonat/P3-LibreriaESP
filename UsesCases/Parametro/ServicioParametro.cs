@@ -11,7 +11,8 @@ public class ServicioParametro : IServicioParametro
     protected IRepositoryParametro _repository;
     protected IMapper _mapper;
 
-    public ServicioParametro(IMapper mapper, IRepositoryParametro repository)
+    public ServicioParametro(IMapper mapper, 
+                             IRepositoryParametro repository)
     {
         _repository = repository;
         _mapper = mapper;
@@ -35,17 +36,17 @@ public class ServicioParametro : IServicioParametro
 
     public void Add (ParametroDto  parametroDto)
     {
-        ThrowExceptionIfItIsNull (parametroDto);
+        ThrowExceptionIfItIsNull(parametroDto);
         parametroDto.Validar();
-        Parametro Parametro = _mapper.Map<Parametro> (parametroDto);
-        _repository.Add (Parametro);
+        Parametro parametro = _mapper.Map<Parametro>(parametroDto);
+        _repository.Add(parametro);
     }
 
     public ParametroDto Get(string clave)
     {
         Parametro parametro = _repository.Get(clave);
         ThrowExceptionIfNotExistElement(parametro);
-        ParametroDto dto = _mapper.Map<ParametroDto> (parametro);
+        ParametroDto dto = _mapper.Map<ParametroDto>(parametro);
         return dto;
     }
 
