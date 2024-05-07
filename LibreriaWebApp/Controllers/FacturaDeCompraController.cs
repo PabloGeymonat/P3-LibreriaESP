@@ -12,8 +12,9 @@ namespace LibreriaWebApp.Controllers
         private IServicioFacturaDeCompra _servicioFacturaDeCompra;
         private IServicioProveedor _servicioProveedor;
         private IServicioPublicacion _servicioPublicacion;
-        
-        
+
+        private static FacturaDeCompraFormViewModel _newFacturaDeCompraFormViewModel;
+        private static List<DetalleFacturaDto> ll = new List<DetalleFacturaDto>();
         public FacturaDeCompraController(IServicioFacturaDeCompra servicioFacturaDeCompra,
                                          IServicioProveedor servicioProveedor,
                                          IServicioPublicacion servicioPublicacion)
@@ -84,9 +85,13 @@ namespace LibreriaWebApp.Controllers
         private FacturaDeCompraFormViewModel GetDefaultFacturaDeCompraFormViewModel()
         {
             FacturaDeCompraFormViewModel facturaDeCompraFormViewModel = new FacturaDeCompraFormViewModel();
+            if (_newFacturaDeCompraFormViewModel != null)
+            {
+                facturaDeCompraFormViewModel = _newFacturaDeCompraFormViewModel;
+                facturaDeCompraFormViewModel.DetallesCompra = ll;
+            }
             facturaDeCompraFormViewModel.posiblesProveedores = _servicioProveedor.GetByName("");
             facturaDeCompraFormViewModel.posiblesPublicaciones = _servicioPublicacion.GetAll();
-            
             return facturaDeCompraFormViewModel;
         }
 
@@ -101,6 +106,17 @@ namespace LibreriaWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateDetalle(FacturaDeCompraFormViewModel facturaDeCompraFormViewModel)
         {
+            _newFacturaDeCompraFormViewModel = facturaDeCompraFormViewModel;
+            //obtengo datos de la nueva linea
+            DetalleFacturaDto detalleFacturaDto = new DetalleFacturaDto();
+            detalleFacturaDto.PublicacionId = facturaDeCompraFormViewModel.NewLine.PublicacionId;
+            detalleFacturaDto.PublicacionDto = facturaDeCompraFormViewModel.NewLine.PublicacionDto;
+            detalleFacturaDto.Cantidad =  facturaDeCompraFormViewModel.NewLine.Cantidad;
+            _newFacturaDeCompraFormViewModel.NewLine = new DetalleFacturaDto();
+            //agrego la nueva linea
+            _newFacturaDeCompraFormViewModel.DetallesCompra.Add(detalleFacturaDto);
+            ll.Add(detalleFacturaDto);
+            //vuelvo al crear
             return RedirectToAction(nameof(Create));
         }
 

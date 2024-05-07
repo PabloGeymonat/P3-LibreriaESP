@@ -3,7 +3,7 @@
 @model LibreriaWebApp.Models.FacturaDeCompraFormViewModel
 
 @{
-    ViewData["Title"] = "Crear Autor";
+    ViewData["Title"] = "Crear Factura";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -52,9 +52,20 @@
         <div class="row mt-3">
             <!-- aca va la edicion del nuevo detalle -->
             <div class="col-lg-3">
-                
                 <!-- aca vamos a seleccionar la publicacion-->
-                
+                <label  class="control-label">PublicacionId</label>
+                 <div class="form-group">
+                    <select asp-for="NewLine.PublicacionId" class="form-control" name ="PublicacionId">
+                        <option value = 0>-- seleccionar la publicacion --</option>
+                        @if (Model.posiblesPublicaciones != null)
+                        {
+                            @foreach (PublicacionDto publicacionDto in Model.posiblesPublicaciones)
+                            {
+                                <option value = "@publicacionDto.Id">@publicacionDto.GetDescription()</option>
+                            }
+                        }
+                    </select>
+                </div>
             </div>
             
             <div class="col-lg-3">
@@ -68,11 +79,40 @@
             <div class="col-lg-3">
                
                 <!-- aca vamos poner un boton -->
+                <button type="submit" class="btn btn-success">Ingresar</button>
             </div>
         </div>
     </form>
     <div class="row mt-3">
-    <!-- aca van los detalles o las lineas -->
+        <!-- aca van los detalles o las lineas -->
+        
+        <table class="table table-striped mt-3">
+            
+        
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Publicacion</th>
+                <th>Cantidad</th>
+                <th>PU</th>
+                <th>Sub Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var facturaDeCompraDto in Model.DetallesCompra)
+            {
+                <tr>
+                    <td>@facturaDeCompraDto.Id</td>
+                    <td></td>
+                    <td>@facturaDeCompraDto.Cantidad</td>
+                    <td>@facturaDeCompraDto.PrecioUnitario</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            }
+            </tbody>
+        </table>
     </div>
     
     <div class="row mt-3">

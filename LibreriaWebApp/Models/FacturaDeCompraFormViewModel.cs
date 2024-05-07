@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Domain.Dtos;
 
 
@@ -8,7 +9,11 @@ public class FacturaDeCompraFormViewModel
     public int Id { get; set; }
     public int ProveedorId { get; set; }
     public ProveedorDto ProveedorDto { get; set; }
+    
+    [DataType(DataType.Date)]
     public DateTime FechaCompra { get; set; }
+    
+    [DataType(DataType.Date)]
     public DateTime VencimientoPago { get; set; }
     public List<DetalleFacturaDto> DetallesCompra { get; set; } = new List<DetalleFacturaDto>();
     
