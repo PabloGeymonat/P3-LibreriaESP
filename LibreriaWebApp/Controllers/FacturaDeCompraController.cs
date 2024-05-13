@@ -2,6 +2,7 @@ using Domain.Dtos;
 using LibreriaWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using UsesCases;
+using Newtonsoft.Json;
 
 namespace LibreriaWebApp.Controllers
 {
@@ -14,7 +15,7 @@ namespace LibreriaWebApp.Controllers
         private IServicioPublicacion _servicioPublicacion;
 
         private static FacturaDeCompraFormViewModel _newFacturaDeCompraFormViewModel;
-        private static List<DetalleFacturaDto> ll = new List<DetalleFacturaDto>();
+     
         public FacturaDeCompraController(IServicioFacturaDeCompra servicioFacturaDeCompra,
                                          IServicioProveedor servicioProveedor,
                                          IServicioPublicacion servicioPublicacion)
@@ -88,7 +89,7 @@ namespace LibreriaWebApp.Controllers
             if (_newFacturaDeCompraFormViewModel != null)
             {
                 facturaDeCompraFormViewModel = _newFacturaDeCompraFormViewModel;
-                facturaDeCompraFormViewModel.DetallesCompra = ll;
+               
             }
             facturaDeCompraFormViewModel.posiblesProveedores = _servicioProveedor.GetByName("");
             facturaDeCompraFormViewModel.posiblesPublicaciones = _servicioPublicacion.GetAll();
@@ -102,11 +103,31 @@ namespace LibreriaWebApp.Controllers
         }
 
 
+        private FacturaDeCompraFormViewModel GetNewPedidoFromSession()
+        {
+            var objetoSerializado = HttpContext.Session.GetString("NuevoPedido") as string;
+            if (objetoSerializado != null)
+            {
+                FacturaDeCompraFormViewModel facturaDeCompraFormViewModel = JsonConvert.DeserializeObject<FacturaDeCompraFormViewModel>(objetoSerializado);
+
+                return facturaDeCompraFormViewModel; // Enviando el objeto como ViewModel a la vista
+            }
+
+            return null;
+        }
+
+        private void SetNuevoPedidoInSession(FacturaDeCompraFormViewModel facturaDeCompraFormViewModel)
+        {
+            string objetoSerializado = JsonConvert.SerializeObject(facturaDeCompraFormViewModel);
+            HttpContext.Session.SetString("NuevoPedido", objetoSerializado);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateDetalle(FacturaDeCompraFormViewModel facturaDeCompraFormViewModel)
         {
             _newFacturaDeCompraFormViewModel = facturaDeCompraFormViewModel;
+            FacturaDeCompraFormViewModel temp = GetNewPedidoFromSession();
             //obtengo datos de la nueva linea
             DetalleFacturaDto detalleFacturaDto = new DetalleFacturaDto();
             detalleFacturaDto.PublicacionId = facturaDeCompraFormViewModel.NewLine.PublicacionId;
@@ -114,8 +135,18 @@ namespace LibreriaWebApp.Controllers
             detalleFacturaDto.Cantidad =  facturaDeCompraFormViewModel.NewLine.Cantidad;
             _newFacturaDeCompraFormViewModel.NewLine = new DetalleFacturaDto();
             //agrego la nueva linea
+            if (temp != null)
+            {
+                _newFacturaDeCompraFormViewModel.DetallesCompra = temp.DetallesCompra;
+            }
+
+            
+            
             _newFacturaDeCompraFormViewModel.DetallesCompra.Add(detalleFacturaDto);
-            ll.Add(detalleFacturaDto);
+            SetNuevoPedidoInSession(_newFacturaDeCompraFormViewModel);
+            
+            
+          
             //vuelvo al crear
             return RedirectToAction(nameof(Create));
         }
